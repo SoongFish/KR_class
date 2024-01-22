@@ -51,7 +51,10 @@ param cosmosDBAccountName string = 'cosmosdb-account-${uniqueString(resourceGrou
 param cosmosDBDatabaseName string = 'cosmosdb-db-${uniqueString(resourceGroup().id)}'
 
 @description('Optional. The name for the CosmosDB database container')
-param cosmosDBContainerName string = 'cosmosdb-container-${uniqueString(resourceGroup().id)}'
+param cosmosDBChatContainerName string = 'cosmosdb-container-${uniqueString(resourceGroup().id)}'
+
+@description('Optional. The name for the CosmosDB database container')
+param cosmosDBUserContainerName string = 'cosmosdb-container-${uniqueString(resourceGroup().id)}'
 
 @description('Optional. The name of the Form Recognizer service')
 param formRecognizerName string = 'form-recognizer-${uniqueString(resourceGroup().id)}'
@@ -127,11 +130,30 @@ resource cosmosDBDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@20
 
 resource cosmosDBContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
   parent: cosmosDBDatabase
-  name: cosmosDBContainerName
+  name: cosmosDBChatContainerName
   location: location
   properties: {
     resource: {
-      id: cosmosDBContainerName
+      id: cosmosDBChatContainerName
+      partitionKey: {
+        paths: [
+          '/user_id'
+        ]
+        kind: 'Hash'
+        version: 2
+      }
+      defaultTtl: 1000
+    }
+  }
+}
+
+resource cosmosDBContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
+  parent: cosmosDBDatabase
+  name: cosmosDBUserContainerName
+  location: location
+  properties: {
+    resource: {
+      id: cosmosDBUserContainerName
       partitionKey: {
         paths: [
           '/user_id'

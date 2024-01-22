@@ -97,7 +97,14 @@
         "description": "Optional. The name for the CosmosDB database"
       }
     },
-    "cosmosDBContainerName": {
+    "cosmosDBChatContainerName": {
+      "type": "string",
+      "defaultValue": "[format('cosmosdb-container-{0}', uniqueString(resourceGroup().id))]",
+      "metadata": {
+        "description": "Optional. The name for the CosmosDB database container"
+      }
+    },
+    "cosmosDBUserContainerName": {
       "type": "string",
       "defaultValue": "[format('cosmosdb-container-{0}', uniqueString(resourceGroup().id))]",
       "metadata": {
@@ -200,11 +207,33 @@
     {
       "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
       "apiVersion": "2023-04-15",
-      "name": "[format('{0}/{1}/{2}', parameters('cosmosDBAccountName'), parameters('cosmosDBDatabaseName'), parameters('cosmosDBContainerName'))]",
+      "name": "[format('{0}/{1}/{2}', parameters('cosmosDBAccountName'), parameters('cosmosDBDatabaseName'), parameters('cosmosDBChatContainerName'))]",
       "location": "[parameters('location')]",
       "properties": {
         "resource": {
-          "id": "[parameters('cosmosDBContainerName')]",
+          "id": "[parameters('cosmosDBChatContainerName')]",
+          "partitionKey": {
+            "paths": [
+              "/user_id"
+            ],
+            "kind": "Hash",
+            "version": 2
+          },
+          "defaultTtl": 1000
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('cosmosDBAccountName'), parameters('cosmosDBDatabaseName'))]"
+      ]
+    },
+	    {
+      "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+      "apiVersion": "2023-04-15",
+      "name": "[format('{0}/{1}/{2}', parameters('cosmosDBAccountName'), parameters('cosmosDBDatabaseName'), parameters('cosmosDBUserContainerName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "resource": {
+          "id": "[parameters('cosmosDBUserContainerName')]",
           "partitionKey": {
             "paths": [
               "/user_id"
