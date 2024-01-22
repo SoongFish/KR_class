@@ -99,14 +99,14 @@
     },
     "cosmosDBChatContainerName": {
       "type": "string",
-      "defaultValue": "[format('cosmosdb-container-{0}', uniqueString(resourceGroup().id))]",
+      "defaultValue": "[format('cosmosdb-chat-container-{0}', uniqueString(resourceGroup().id))]",
       "metadata": {
         "description": "Optional. The name for the CosmosDB database container"
       }
     },
     "cosmosDBUserContainerName": {
       "type": "string",
-      "defaultValue": "[format('cosmosdb-container-{0}', uniqueString(resourceGroup().id))]",
+      "defaultValue": "[format('cosmosdb-user-container-{0}', uniqueString(resourceGroup().id))]",
       "metadata": {
         "description": "Optional. The name for the CosmosDB database container"
       }
@@ -236,7 +236,7 @@
           "id": "[parameters('cosmosDBUserContainerName')]",
           "partitionKey": {
             "paths": [
-              "/user_id"
+              "/id"
             ],
             "kind": "Hash",
             "version": 2

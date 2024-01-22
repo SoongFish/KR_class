@@ -156,7 +156,7 @@ resource cosmosDBContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/c
       id: cosmosDBUserContainerName
       partitionKey: {
         paths: [
-          '/user_id'
+          '/id'
         ]
         kind: 'Hash'
         version: 2
