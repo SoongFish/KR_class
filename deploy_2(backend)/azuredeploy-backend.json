@@ -285,7 +285,7 @@
               "value": "[parameters('cosmosDBUserContainerName')]"
             },
             {
-              "name": "AZURE_COMOSDB_CONNECTION_STRING",
+              "name": "AZURE_COSMOSDB_CONNECTION_STRING",
               "value": "[listConnectionStrings(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('resourceGroupSearch')), 'Microsoft.DocumentDB/databaseAccounts', parameters('cosmosDBAccountName')), '2023-04-15').connectionStrings[0].connectionString]"
             },
             {

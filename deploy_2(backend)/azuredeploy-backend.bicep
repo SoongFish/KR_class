@@ -215,7 +215,7 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
           value: cosmosDBUserContainerName
         }
         {
-          name: 'AZURE_COMOSDB_CONNECTION_STRING'
+          name: 'AZURE_COSMOSDB_CONNECTION_STRING'
           value: cosmosDB.listConnectionStrings().connectionStrings[0].connectionString
         }
         {
