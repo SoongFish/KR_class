@@ -37,8 +37,14 @@ param bingSearchUrl string = 'https://api.bing.microsoft.com/v7.0/search'
 @description('Required. The name of the Bing Search service deployed previously.')
 param bingSearchName string
 
+@description('Required. The key of the Azure CosmosDB.')
+param cosmosDBKey string
+
 @description('Required. The name of the Azure CosmosDB.')
 param cosmosDBAccountName string
+
+@description('Required. The name of the Azure CosmosDB database.')
+param cosmosDBDBName string
 
 @description('Required. The name of the Azure CosmosDB chat container.')
 param cosmosDBChatContainerName string
@@ -184,13 +190,21 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
           name: 'BING_SUBSCRIPTION_KEY'
           value: bingSearch.listKeys().key1
         }
-        {
+		{
           name: 'AZURE_COSMOSDB_ENDPOINT'
           value: 'https://${cosmosDBAccountName}.documents.azure.com:443/'
         }
         {
+          name: 'AZURE_COSMOSDB_KEY'
+          value: 'cosmosDBKey'
+        }
+        {
           name: 'AZURE_COSMOSDB_NAME'
           value: cosmosDBAccountName
+        }
+		{
+          name: 'AZURE_COSMOSDB_DB_NAME'
+          value: cosmosDBDBName
         }
         {
           name: 'AZURE_COSMOSDB_CHAT_CONTAINER_NAME'

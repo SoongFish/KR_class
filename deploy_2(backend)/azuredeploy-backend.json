@@ -86,10 +86,22 @@
         "description": "Required. The name of the Bing Search service deployed previously."
       }
     },
+	"cosmosDBKey": {
+      "type": "string",
+      "metadata": {
+        "description": "Required. The key of the Azure CosmosDB."
+      }
+    },
     "cosmosDBAccountName": {
       "type": "string",
       "metadata": {
         "description": "Required. The name of the Azure CosmosDB."
+      }
+    },
+	"cosmosDBDBName": {
+      "type": "string",
+      "metadata": {
+        "description": "Required. The name of the Azure CosmosDB database."
       }
     },
     "cosmosDBChatContainerName": {
@@ -252,9 +264,17 @@
               "name": "AZURE_COSMOSDB_ENDPOINT",
               "value": "[format('https://{0}.documents.azure.com:443/', parameters('cosmosDBAccountName'))]"
             },
+			{
+              "name": "AZURE_COSMOSDB_KEY",
+              "value": "[parameters('cosmosDBKey')]"
+            },
             {
               "name": "AZURE_COSMOSDB_NAME",
               "value": "[parameters('cosmosDBAccountName')]"
+            },
+			{
+              "name": "AZURE_COSMOSDB_DB_NAME",
+              "value": "[parameters('cosmosDBDBName')]"
             },
             {
               "name": "AZURE_COSMOSDB_CHAT_CONTAINER_NAME",
