@@ -40,8 +40,11 @@ param bingSearchName string
 @description('Required. The name of the Azure CosmosDB.')
 param cosmosDBAccountName string
 
-@description('Required. The name of the Azure CosmosDB container.')
-param cosmosDBContainerName string
+@description('Required. The name of the Azure CosmosDB chat container.')
+param cosmosDBChatContainerName string
+
+@description('Required. The name of the Azure CosmosDB user container.')
+param cosmosDBUserContainerName string
 
 @description('Optional. The globally unique and immutable bot ID. Also used to configure the displayName of the bot, which is mutable.')
 param botId string = 'BotId-${uniqueString(resourceGroup().id)}'
@@ -190,8 +193,12 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
           value: cosmosDBAccountName
         }
         {
-          name: 'AZURE_COSMOSDB_CONTAINER_NAME'
-          value: cosmosDBContainerName
+          name: 'AZURE_COSMOSDB_CHAT_CONTAINER_NAME'
+          value: cosmosDBChatContainerName
+        }
+		{
+          name: 'AZURE_COSMOSDB_USER_CONTAINER_NAME'
+          value: cosmosDBUserContainerName
         }
         {
           name: 'AZURE_COMOSDB_CONNECTION_STRING'

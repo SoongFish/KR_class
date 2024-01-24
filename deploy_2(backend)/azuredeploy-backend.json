@@ -92,10 +92,16 @@
         "description": "Required. The name of the Azure CosmosDB."
       }
     },
-    "cosmosDBContainerName": {
+    "cosmosDBChatContainerName": {
       "type": "string",
       "metadata": {
-        "description": "Required. The name of the Azure CosmosDB container."
+        "description": "Required. The name of the Azure CosmosDB chat container."
+      }
+    },
+    "cosmosDBUserContainerName": {
+      "type": "string",
+      "metadata": {
+        "description": "Required. The name of the Azure CosmosDB user container."
       }
     },
     "botId": {
@@ -251,8 +257,12 @@
               "value": "[parameters('cosmosDBAccountName')]"
             },
             {
-              "name": "AZURE_COSMOSDB_CONTAINER_NAME",
-              "value": "[parameters('cosmosDBContainerName')]"
+              "name": "AZURE_COSMOSDB_CHAT_CONTAINER_NAME",
+              "value": "[parameters('cosmosDBChatContainerName')]"
+            },
+			{
+              "name": "AZURE_COSMOSDB_USER_CONTAINER_NAME",
+              "value": "[parameters('cosmosDBUserContainerName')]"
             },
             {
               "name": "AZURE_COMOSDB_CONNECTION_STRING",
